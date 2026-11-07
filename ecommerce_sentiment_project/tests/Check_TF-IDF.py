@@ -5,7 +5,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 print("--- KIỂM TRA MA TRẬN ĐẶC TRƯNG TF-IDF ---")
 
 # 1. Chuẩn bị dữ liệu
-df = pd.read_csv('reviews_clean.csv')
+# --- ĐOẠN CODE MỚI (CHUẨN ĐƯỜNG DẪN) ---
+from pathlib import Path
+CURRENT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = CURRENT_DIR.parent
+DATA_PATH = PROJECT_ROOT / "data" / "processed" / "reviews_clean.csv"
+
+df = pd.read_csv(DATA_PATH)
 df = df.dropna(subset=['text_clean', 'label'])
 X_train, _, _, _ = train_test_split(
     df['text_clean'], df['label'], test_size=0.2, random_state=42, stratify=df['label']
